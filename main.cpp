@@ -1,15 +1,18 @@
 // HEADERS
 // data structures
 // Person object definition
+// END HEADERS
 
 // FUNCTIONS
 // generate Person with random name/age
 // determine recovery/death for Person
 // calculate number of new infections
+// END FUNCTIONS
 
 // GLOBAL VARIABLES
 // firstNames array, for random name generation
 // lastNames array, for random name generation
+// END GLOBAL
 
 // MAIN
 // read first and last name data from file (state abbrev: population) && place into global arrays && close file; EXIT if ERROR
@@ -25,7 +28,16 @@
 // place person into list determined by function
 // CALL: function calculate number of new infections
 // if new infections:
-    // CALL: function to generate random Person
-    // add to infected list
+// CALL: function to generate random Person
+// add to infected list
+// output state summary to console
+// sleep timer to let user read results
+// NEXT: state to process
 
+// all states processed, output current snapshot of all states to console
+// sleep timer to let user read summary
+// NEXT: iteration
 
+// output summary to console of infected/recovered/dead after 52 intervals
+
+// END MAIN
