@@ -21,7 +21,6 @@
 + For each iteration, a random infection value is assigned and multiplied times the number of infected people and population size to determine the number of new infections.
     - A reduction in the number of new infections is based on the number of recovered individuals.
 + For each iteration, a previously infected individual MUST recover or pass away.
-+ If number infected decreases to 0 during an iteration, infections will be increased to 1.
 
 ## Additional Notes
 + For the current version of this program:
