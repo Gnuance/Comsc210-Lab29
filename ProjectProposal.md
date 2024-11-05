@@ -13,14 +13,18 @@
 
 ## Implementation
 + States are represented as map elements {State<string>: population<int>, infected<list>, recovered<list>, died<list>}
-+ Age range for population (years): 1-100
++ Each list item holds elements of type Person representing an individual.
+    - Names/ages assigned randomly.
++ Age range for Person (years): 1-100
 
 ## Simulation Events
-+ For each iteration, a random infection value is assigned and multiplied times the number of infected people to determine the number of new infections.
++ For each iteration, a random infection value is assigned and multiplied times the number of infected people and population size to determine the number of new infections.
     - A reduction in the number of new infections is based on the number of recovered individuals.
 + For each iteration, a previously infected individual MUST recover or pass away.
++ If number infected decreases to 0 during an iteration, infections will be increased to 1.
 
 ## Additional Notes
-+ For the current version of this program, the states are considered to be independent of one another, meaning that states are not impacted by the infection values of their neighboring states.
-+ The deltas for likelihood of recovery/death do not take into account infancy; meaning, an infected person age 1 is most likely to 
++ For the current version of this program:
+    - The states are considered to be independent of one another, meaning that states are not impacted by the infection values of their neighboring states.
+    - The deltas for likelihood of recovery/death do not take into account infancy; meaning, an infected person age 1 is most likely to recover from infection even though this does not resemble reality.
 
