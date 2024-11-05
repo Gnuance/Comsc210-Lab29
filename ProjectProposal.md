@@ -8,7 +8,8 @@
 + A higher number of infected increases the likelihood of more infections, and a higher number of recovered decreases the likelihood of infections. 
 + Individuals over age 60 have a higher likelihood of dying, and individuals under 40 have a higher likelihood of recovering.
     - The likelihood is based on the distance of their age from those age limits.
-+ Every round, a random infection value is assigned and multiplied times the number of  infected people
 
 ## Implementation
-+ Each map element represents a state, and each state contains three lists of people: infected, dead, and recovered.
++ States are represented as map elements {State<string>: population<int>, infected<list>, recovered<list>, died<list>}
++ For each iteration, a random infection value is assigned and multiplied times the number of infected people to determine the number of new infections.
+    - A reduction in the number of new infections is based on the number of recovered individuals.
