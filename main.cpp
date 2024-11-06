@@ -21,13 +21,15 @@
 // generate Person with random name/age
 Person &CreateRandomPerson();
 // determine recovery/death for Person
+void UpdateHealthStatus(Person &);
 // calculate number of new infections
 // END FUNCTIONS
 
 // GLOBAL VARIABLES
 // firstNames array, for random name generation
-const string FIRST_NAMES[] = {};
+const string FIRST_NAMES[100] = {};
 // lastNames array, for random name generation
+const string LAST_NAMES[100] = {};
 // END GLOBAL
 
 // MAIN
