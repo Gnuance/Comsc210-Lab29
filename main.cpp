@@ -1,7 +1,7 @@
 /*
     Lab 29: Project proposal and wireframe
         1. Proposal in .md form and uploaded in PDF format
-        2. 
+        2.
 */
 
 // HEADERS
@@ -19,6 +19,7 @@
 
 // FUNCTIONS
 // generate Person with random name/age
+Person &CreateRandomPerson();
 // determine recovery/death for Person
 // calculate number of new infections
 // END FUNCTIONS

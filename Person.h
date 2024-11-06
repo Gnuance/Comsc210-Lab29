@@ -1,6 +1,6 @@
 // Person.h
 
-/*  
+/*
     Person class: modified from Goat.h in Lab24
 */
 
@@ -9,19 +9,24 @@
 #include <string>
 using namespace std;
 
-class Person {
+class Person
+{
 private:
     string name;
     int age;
-public: 
-    // name and age
-    Person(string, int );
+    string status;
+
+public:
+    Person(string, int);
+    Person(string, int, string);
 
     // setters and getters
     void setName(string);
     string getName() const;
     void setAge(int);
     int getAge() const;
+    void setStatus(string);
+    string getStatus() const;
 
     // necessary to compare objects
     bool operator<(const Person &) const;
