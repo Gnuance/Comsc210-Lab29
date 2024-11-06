@@ -85,8 +85,12 @@ int main()
 
     // begin simulation of infection events
     // for 52 intervals
-    for (int i = 0; i < SIMULATION_ITERATIONS; i++)
+    // test single iteration for now
+    for (int i = 0; i < 1; i++)
     {
+        Person bob = CreateRandomPerson(firstNames, lastNames);
+
+        // cout << "Name: " << bob.getName() << " Age: " << bob.getAge();
         // for each state <map element>
         // CALL: function to determine recovery/death for each infected person
         // place person into list determined by function
@@ -128,7 +132,7 @@ void UpdateHealthStatus(Person &p)
         {
             p.setStatus("deceased");
         }
-        else if (p.getAge() < 40)
+        else
         {
             p.setStatus("recovered");
         }
