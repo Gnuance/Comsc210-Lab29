@@ -47,7 +47,6 @@ int main()
     const string LAST_NAME_FILENAME = "firstNames.csv";
     const string STATE_FILENAME = "statePopulationInfo.txt";
     string line = "";
-    stringstream ss;
     string data = "";
     string stateName = "";
     int population = 0;
@@ -68,16 +67,23 @@ int main()
         string errorMessage = "File: " + STATE_FILENAME + " could not be opened.";
         throw runtime_error(errorMessage);
     }
-
+    // get each line from file and parse for state name and population
     while (getline(inFile, line))
     {
-        ss << line;
+        stringstream ss(line);
         getline(ss, stateName, ':');
         ss >> population;
-        cout << "State: " << stateName << " Population: " << population << "\n";
+        // cout << "State: " << stateName << " Population: " << population << "\n";
+        states.insert({stateName, tuple(population, list<Person>(), list<Person>(), list<Person>())});
     }
     // close state data file
     inFile.close();
+
+    for (auto it = states.begin(); it != states.end(); it++)
+    {
+        cout << it->first();
+    }
+    
 
     // begin simulation of infection events
     // for 52 intervals
