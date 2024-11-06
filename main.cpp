@@ -104,13 +104,15 @@ int main()
             it->second[0].push_back(infectedPerson);
         }
         
-        // CALL: function to determine recovery/death for each infected person
-        for (auto it = states.begin(); it != states.end(); it++)
+        // CALL: function to determine recovery/death for each infected person for each state
+        for (auto it = states.begin(); it != states.end(); it++) // for each state
         {
-            // create infected person for each state
-            Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
-            infectedPerson.setStatus("infected");
-            it->second[0].push_back(infectedPerson);
+            for (auto p : it->second[0])
+            {
+                /* code */
+            }
+            
+            .push_back(infectedPerson);
         }
         // place person into list determined by function
 
@@ -149,7 +151,7 @@ void UpdateHealthStatus(Person &p)
     {
         // calculate mortality;
         // if rand() < persons age == deceased, else, recovered
-        if (rand() % 100 > p.getAge())
+        if (rand() % 100 < p.getAge())
         {
             p.setStatus("deceased");
         }
