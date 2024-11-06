@@ -35,9 +35,9 @@ vector<string> GetNamesFromFile(string);
 
 // GLOBAL VARIABLES
 // firstNames array, for random name generation
-const string FIRST_NAMES[100] = {};
-// lastNames array, for random name generation
-const string LAST_NAMES[100] = {};
+// const string FIRST_NAMES[100] = {};
+// // lastNames array, for random name generation
+// const string LAST_NAMES[100] = {};
 // END GLOBAL
 
 // MAIN
@@ -49,13 +49,7 @@ int main()
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
     vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
 
-    for (size_t i = 0; i < 20; i++)
-    {
-        cout << "First name: " << firstNames.at(i) << "\n";
-    }
-    
-
-    // read state data from file (state abbrev: population,); EXIT if ERROR
+    // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
     // close state data file
 
@@ -96,10 +90,10 @@ void UpdateHealthStatus(Person & p)
 vector<string> GetNamesFromFile(string fileName)
 {
     // open file
-    ifstream inputFile("fileName");
+    ifstream inputFile(fileName);
     
     // check file is open
-    if (!inputFile)
+    if (!inputFile.is_open())
     {
         string errorMessage = "File: " + fileName + " could not be opened.";
         throw runtime_error(errorMessage);
@@ -119,6 +113,7 @@ vector<string> GetNamesFromFile(string fileName)
             names.push_back(name);
         }        
     }
+    inputFile.close(); // close the file
 
     return names;
 }
