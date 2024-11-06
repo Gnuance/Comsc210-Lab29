@@ -20,6 +20,7 @@
 #include <map>
 #include <list>
 #include <vector>
+#include <array>
 
 // Person object definition
 #include "Person.h"
@@ -117,17 +118,11 @@ int main()
 // generate Person with random name/age
 Person CreateRandomPerson(const vector<string> &firstName, const vector<string> &lastName)
 {
-    Person p;
-    // int age = rand() % 100 + 1;
+    int age = rand() % 100 + 1;
     string name = string(firstName.at(rand() % firstName.size()) + " " + lastName.at(rand() % lastName.size()));
 
-    p.setAge(rand() % 100 + 1);
-    p.setName(name);
-    p.setStatus("infected");
-
-    return p;
+    return Person(name, age, "infected");
 }
-// Person(name, age, "infected");
 
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &p)

@@ -27,5 +27,7 @@ int Person::getAge() const { return age; }
 void Person::setStatus(string s) { status = s; }
 string Person::getStatus() const { return status; }
 
+Person::~Person(){}
+
 // overloaded operators
 bool Person::operator<(const Person &g) const { return name < g.name; }

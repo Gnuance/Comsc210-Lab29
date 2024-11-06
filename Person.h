@@ -29,7 +29,8 @@ public:
     int getAge() const;
     void setStatus(string);
     string getStatus() const;
-    // Person createRandomPerson();
+    
+    ~Person();
 
     // necessary to compare objects
     bool operator<(const Person &) const;
