@@ -51,6 +51,7 @@ int main()
     string data = "";
     string stateName = "";
     int population = 0;
+    string temp = "";
 
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
@@ -71,15 +72,12 @@ int main()
     while (getline(inFile, line))
     {
         ss << line;
-        while (getline(ss, data, ':'))
-        {
-            stateName = data;
-            population = stoi(data);
-        }
+        getline(ss, stateName, ':');
+        ss >> population;
+        cout << "State: " << stateName << " Population: " << population << "\n";
     }
     // close state data file
     inFile.close();
-
 
     // begin simulation of infection events
     // for 52 intervals
