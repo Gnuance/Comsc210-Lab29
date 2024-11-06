@@ -98,10 +98,20 @@ int main()
         // for each state <map element>
         for (auto it = states.begin(); it != states.end(); it++)
         {
-            cout << it->first << endl;
+            // create infected person for each state
+            Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
+            infectedPerson.setStatus("infected");
+            it->second[0].push_back(infectedPerson);
         }
         
         // CALL: function to determine recovery/death for each infected person
+        for (auto it = states.begin(); it != states.end(); it++)
+        {
+            // create infected person for each state
+            Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
+            infectedPerson.setStatus("infected");
+            it->second[0].push_back(infectedPerson);
+        }
         // place person into list determined by function
 
         // CALL: function calculate number of new infections
@@ -137,7 +147,9 @@ void UpdateHealthStatus(Person &p)
     // update health status based on age
     if (p.getStatus() == "infected")
     {
-        if (p.getAge() > 60)
+        // calculate mortality;
+        // if rand() < persons age == deceased, else, recovered
+        if (rand() % 100 > p.getAge())
         {
             p.setStatus("deceased");
         }
