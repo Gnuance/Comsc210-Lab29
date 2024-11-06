@@ -45,6 +45,13 @@ int main()
 {
     const string FIRST_NAME_FILENAME = "firstNames.csv";
     const string LAST_NAME_FILENAME = "firstNames.csv";
+    const string STATE_FILENAME = "statePopulationInfo.txt";
+    string line = "";
+    stringstream ss;
+    string data = "";
+    string stateName = "";
+    int population = 0;
+
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
     vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
@@ -53,8 +60,26 @@ int main()
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
     map<string, tuple<int, list<Person>, list<Person>, list<Person>>> states;
 
+    // read in state information
+    ifstream inFile(STATE_FILENAME);
+    if (!inFile)
+    {
+        string errorMessage = "File: " + STATE_FILENAME + " could not be opened.";
+        throw runtime_error(errorMessage);
+    }
 
+    while (getline(inFile, line))
+    {
+        ss << line;
+        while (getline(ss, data, ':'))
+        {
+            stateName = data;
+            population = stoi(data);
+        }
+    }
     // close state data file
+    inFile.close();
+
 
     // begin simulation of infection events
     // for 52 intervals
@@ -85,7 +110,7 @@ Person CreateRandomPerson()
 }
 
 // determine recovery/death for Person
-void UpdateHealthStatus(Person & p)
+void UpdateHealthStatus(Person &p)
 {
 }
 
@@ -94,7 +119,7 @@ vector<string> GetNamesFromFile(string fileName)
 {
     // open file
     ifstream inputFile(fileName);
-    
+
     // check file is open
     if (!inputFile.is_open())
     {
@@ -114,7 +139,7 @@ vector<string> GetNamesFromFile(string fileName)
         while (getline(ss, name, ','))
         {
             names.push_back(name);
-        }        
+        }
     }
     inputFile.close(); // close the file
 
