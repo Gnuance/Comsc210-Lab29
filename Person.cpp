@@ -1,6 +1,5 @@
 // Person definition
 
-#include <string>
 #include "Person.h"
 
 // name, age
@@ -28,5 +27,3 @@ string Person::getStatus() const { return status; }
 
 // overloaded operators
 bool Person::operator<(const Person &g) const { return name < g.name; }
-
-Person::~Person() {}
