@@ -51,6 +51,7 @@ int main()
 
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
+    map<string, tuple<int, list<Person>, list<Person>, list<Person>>> states;
     // close state data file
 
     // begin simulation of infection events
