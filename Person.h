@@ -6,6 +6,7 @@
 
 #ifndef PERSON_H
 #define PERSON_H
+
 #include <string>
 using namespace std;
 
@@ -17,6 +18,7 @@ private:
     string status;
 
 public:
+    Person();
     Person(string, int);
     Person(string, int, string);
 

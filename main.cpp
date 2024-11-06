@@ -117,11 +117,17 @@ int main()
 // generate Person with random name/age
 Person CreateRandomPerson(const vector<string> &firstName, const vector<string> &lastName)
 {
-    int age = rand() % 100 + 1;
+    Person p;
+    // int age = rand() % 100 + 1;
     string name = string(firstName.at(rand() % firstName.size()) + " " + lastName.at(rand() % lastName.size()));
 
-    return Person(name, age, "infected");
+    p.setAge(rand() % 100 + 1);
+    p.setName(name);
+    p.setStatus("infected");
+
+    return p;
 }
+// Person(name, age, "infected");
 
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &p)

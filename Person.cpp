@@ -2,6 +2,8 @@
 
 #include "Person.h"
 
+Person::Person(){}
+
 // name, age
 Person::Person(string n, int a)
 {
