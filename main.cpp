@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 // data structures
 #include <map>
@@ -16,6 +17,8 @@
 
 // Person object definition
 #include "Person.h"
+
+using namespace std;
 // END HEADERS
 
 // FUNCTIONS
@@ -25,7 +28,7 @@ Person &CreateRandomPerson();
 void UpdateHealthStatus(Person &);
 // calculate number of new infections
 // populate name container
-vector<string>& GetNamesFromFile(string);
+vector<string> &GetNamesFromFile(string);
 // END FUNCTIONS
 
 // GLOBAL VARIABLES
@@ -77,12 +80,28 @@ Person &CreateRandomPerson()
 }
 
 // determine recovery/death for Person
-void UpdateHealthStatus(Person &)
+void UpdateHealthStatus(Person & p)
 {
 }
 
 // populate name container
-vector<string>& GetNamesFromFile(string fileName){
+vector<string> &GetNamesFromFile(string fileName)
+{
+    // open file
+    ifstream inputFile("fileName");
+    
+    // check file is open
+    if (!inputFile)
+    {
+        cerr << "File: " << fileName << " could not be opened.";
+        return;
+    }
+
+    while (inputFile)
+    {
+        /* code */
+    }
+        
     vector<string> names = {};
 
 
