@@ -1,7 +1,7 @@
 /*
     Lab 29: Project proposal and wireframe
         1. Proposal in .md form and uploaded in PDF format
-        2.
+        2. Pseudocode in .cpp
 */
 
 // HEADERS
@@ -12,6 +12,7 @@
 // data structures
 #include <map>
 #include <list>
+#include <vector>
 
 // Person object definition
 #include "Person.h"
@@ -24,7 +25,7 @@ Person &CreateRandomPerson();
 void UpdateHealthStatus(Person &);
 // calculate number of new infections
 // populate name container
-void PopulateNames(string[]);
+vector<string>& GetNamesFromFile(string);
 // END FUNCTIONS
 
 // GLOBAL VARIABLES
@@ -39,7 +40,9 @@ int main()
 {
     const string FIRST_NAME_FILENAME = "firstNames.csv";
     const string LAST_NAME_FILENAME = "firstNames.csv";
-    // read first and last name data from file (state abbrev: population) && place into global arrays && close file; EXIT if ERROR
+    // read first and last name data from file && place into arrays && close file; EXIT if ERROR
+    vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
+    vector<string> firstNames = GetNamesFromFile(LAST_NAME_FILENAME);
 
     // read state data from file (state abbrev: population,); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
@@ -79,6 +82,8 @@ void UpdateHealthStatus(Person &)
 }
 
 // populate name container
-void PopulateNames(string[]){
-    
+vector<string>& GetNamesFromFile(string fileName){
+    vector<string> names = {};
+
+
 }
