@@ -23,6 +23,8 @@ Person &CreateRandomPerson();
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &);
 // calculate number of new infections
+// populate name container
+void PopulateNames(string[]);
 // END FUNCTIONS
 
 // GLOBAL VARIABLES
@@ -35,6 +37,8 @@ const string LAST_NAMES[100] = {};
 // MAIN
 int main()
 {
+    const string FIRST_NAME_FILENAME = "firstNames.csv";
+    const string LAST_NAME_FILENAME = "firstNames.csv";
     // read first and last name data from file (state abbrev: population) && place into global arrays && close file; EXIT if ERROR
 
     // read state data from file (state abbrev: population,); EXIT if ERROR
@@ -64,7 +68,17 @@ int main()
     return 0;
 }
 
-Person &
-CreateRandomPerson()
+// generate Person with random name/age
+Person &CreateRandomPerson()
 {
+}
+
+// determine recovery/death for Person
+void UpdateHealthStatus(Person &)
+{
+}
+
+// populate name container
+void PopulateNames(string[]){
+    
 }
