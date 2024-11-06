@@ -1,5 +1,7 @@
 /*
     Lab 29: Project proposal and wireframe
+        1. Proposal in .md form and uploaded in PDF format
+        2. 
 */
 
 // HEADERS
