@@ -91,7 +91,7 @@ int main()
     {
         Person bob = CreateRandomPerson(firstNames, lastNames);
 
-        // cout << "Name: " << bob.getName() << " Age: " << bob.getAge();
+        cout << "Name: " << bob.getName() << " Age: " << bob.getAge();
         // for each state <map element>
         // CALL: function to determine recovery/death for each infected person
         // place person into list determined by function
