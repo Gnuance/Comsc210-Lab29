@@ -83,7 +83,8 @@ int main()
         ss >> population;
         statePopulations.insert({stateName, population}); // create population map
 
-        // create array
+        // create array for each state to hold infected/recovered/deceased
+        array<list<Person>, 3> statusGroups = {};
         states.insert({stateName, array<list<Person>, 3>});
     }
     // close state data file
