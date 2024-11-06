@@ -64,7 +64,7 @@ int main()
 
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
-    map<string, array<list<Person>,3>> states;
+    map<string, array<list<Person>, 3>> states;
     // population map to use for calculations later
     map<string, int> statePopulations;
 
@@ -103,13 +103,24 @@ int main()
             infectedPerson.setStatus("infected");
             it->second[0].push_back(infectedPerson);
         }
-        
+
         // CALL: function to determine recovery/death for each infected person for each state
         for (auto it = states.begin(); it != states.end(); it++) // for each state
         {
+            cout << it->first << ":\n";
             for (auto p : it->second[0])
             {
-                /* code */
+                it->second[0].remove(p);
+                UpdateHealthStatus(p);
+                // update list of recovered and deceased
+                if (p.getStatus() == "recovered")
+                {
+                    it->second[1].push_back(p);
+                }
+                else if (p.getStatus() == "deceased")
+                {
+                    it->second[2].push_back(p);
+                }
             }
         }
         // place person into list determined by function
