@@ -83,9 +83,9 @@ int main()
         ss >> population;
         statePopulations.insert({stateName, population}); // create population map
 
-        // create array for each state to hold infected/recovered/deceased
+        // create array for each state map to hold infected/recovered/deceased
         array<list<Person>, 3> statusGroups = {};
-        states.insert({stateName, array<list<Person>, 3>});
+        states.insert({stateName, statusGroups});
     }
     // close state data file
     inFile.close();
@@ -95,10 +95,12 @@ int main()
     // test single iteration for now
     for (int i = 0; i < 1; i++)
     {
-        Person bob = CreateRandomPerson(firstNames, lastNames);
-
-        cout << "Name: " << bob.getName() << " Age: " << bob.getAge();
         // for each state <map element>
+        for (auto it = states.begin(); it != states.end(); it++)
+        {
+            cout << it->first << endl;
+        }
+        
         // CALL: function to determine recovery/death for each infected person
         // place person into list determined by function
 
