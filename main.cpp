@@ -111,8 +111,6 @@ int main()
             {
                 /* code */
             }
-            
-            .push_back(infectedPerson);
         }
         // place person into list determined by function
 
