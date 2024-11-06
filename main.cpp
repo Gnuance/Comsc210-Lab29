@@ -14,6 +14,7 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <random>
 
 // data structures
 #include <map>
@@ -117,7 +118,7 @@ int main()
 Person CreateRandomPerson(const vector<string> &firstName, const vector<string> &lastName)
 {
     int age = rand() % 100 + 1;
-    string name = string(firstName.at(rand()% 100 + 1) + " " + lastName.at(rand()% 100 + 1));
+    string name = string(firstName.at(rand() % firstName.size()) + " " + lastName.at(rand() % lastName.size()));
 
     return Person(name, age, "infected");
 }
