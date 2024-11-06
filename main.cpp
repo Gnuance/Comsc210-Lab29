@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 
 // data structures
 #include <map>
@@ -97,12 +98,20 @@ vector<string> &GetNamesFromFile(string fileName)
         return;
     }
 
-    while (inputFile)
-    {
-        /* code */
-    }
-        
     vector<string> names = {};
+    string line = "";
+    stringstream ss;
+    string name = "";
 
+    // read each line into stringstream and parse with ','
+    while (getline(inputFile, line))
+    {
+        ss << line;
+        while (getline(ss, name, ','))
+        {
+            names.push_back(name);
+        }        
+    }
 
+    return names;
 }
