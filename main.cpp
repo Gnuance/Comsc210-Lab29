@@ -26,6 +26,7 @@ Person &CreateRandomPerson();
 
 // GLOBAL VARIABLES
 // firstNames array, for random name generation
+const string FIRST_NAMES[] = {};
 // lastNames array, for random name generation
 // END GLOBAL
 
@@ -56,3 +57,7 @@ Person &CreateRandomPerson();
 // output summary to console of infected/recovered/dead after 52 intervals
 
 // END MAIN
+
+Person &CreateRandomPerson(){
+
+}
