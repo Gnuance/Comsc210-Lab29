@@ -1,18 +1,6 @@
-/*
-    Lab 29: Project proposal and wireframe
-*/
-
 // HEADERS
-#include <string>
-#include <iostream>
-#include <iomanip>
-
 // data structures
-#include <map>
-#include <list>
-
 // Person object definition
-#include "Person.h"
 // END HEADERS
 
 // FUNCTIONS
