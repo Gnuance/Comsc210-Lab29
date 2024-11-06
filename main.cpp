@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 
 // data structures
 #include <map>
@@ -24,12 +25,12 @@ using namespace std;
 
 // FUNCTIONS
 // generate Person with random name/age
-Person &CreateRandomPerson();
+Person CreateRandomPerson();
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &);
 // calculate number of new infections
 // populate name container
-vector<string> &GetNamesFromFile(string);
+vector<string> GetNamesFromFile(string);
 // END FUNCTIONS
 
 // GLOBAL VARIABLES
@@ -46,7 +47,13 @@ int main()
     const string LAST_NAME_FILENAME = "firstNames.csv";
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
-    vector<string> firstNames = GetNamesFromFile(LAST_NAME_FILENAME);
+    vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
+
+    for (size_t i = 0; i < 20; i++)
+    {
+        cout << "First name: " << firstNames.at(i) << "\n";
+    }
+    
 
     // read state data from file (state abbrev: population,); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
@@ -76,7 +83,7 @@ int main()
 }
 
 // generate Person with random name/age
-Person &CreateRandomPerson()
+Person CreateRandomPerson()
 {
 }
 
@@ -86,7 +93,7 @@ void UpdateHealthStatus(Person & p)
 }
 
 // populate name container
-vector<string> &GetNamesFromFile(string fileName)
+vector<string> GetNamesFromFile(string fileName)
 {
     // open file
     ifstream inputFile("fileName");
@@ -94,8 +101,8 @@ vector<string> &GetNamesFromFile(string fileName)
     // check file is open
     if (!inputFile)
     {
-        cerr << "File: " << fileName << " could not be opened.";
-        return;
+        string errorMessage = "File: " + fileName + " could not be opened.";
+        throw runtime_error(errorMessage);
     }
 
     vector<string> names = {};
