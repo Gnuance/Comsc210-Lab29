@@ -2,6 +2,9 @@
     Lab 29: Project proposal and wireframe
         1. Proposal in .md form and uploaded in PDF format
         2. Pseudocode in .cpp
+
+    Design Decisions:
+        1. Decided global variables were not needed and would be more modular to omit.
 */
 
 // HEADERS
@@ -25,7 +28,7 @@ using namespace std;
 
 // FUNCTIONS
 // generate Person with random name/age
-Person CreateRandomPerson();
+Person CreateRandomPerson(const vector<string> &, const vector<string> &);
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &);
 // calculate number of new infections
@@ -46,6 +49,7 @@ int main()
     const string FIRST_NAME_FILENAME = "firstNames.csv";
     const string LAST_NAME_FILENAME = "firstNames.csv";
     const string STATE_FILENAME = "statePopulationInfo.txt";
+    const int SIMULATION_ITERATIONS = 52;
     string line = "";
     string data = "";
     string stateName = "";
@@ -79,29 +83,26 @@ int main()
     // close state data file
     inFile.close();
 
-    for (auto it = states.begin(); it != states.end(); it++)
-    {
-        cout << it->first();
-    }
-    
-
     // begin simulation of infection events
     // for 52 intervals
-    // for each state <map element>
-    // CALL: function to determine recovery/death for each infected person
-    // place person into list determined by function
-    // CALL: function calculate number of new infections
-    // if new infections:
-    // CALL: function to generate random Person
-    // add to infected list
-    // output state summary to console
-    // sleep timer to let user read results
-    // NEXT: state to process
+    for (int i = 0; i < SIMULATION_ITERATIONS; i++)
+    {
+        // for each state <map element>
+        // CALL: function to determine recovery/death for each infected person
+        // place person into list determined by function
 
-    // all states processed, output current snapshot of all states to console
-    // sleep timer to let user read summary
-    // NEXT: iteration
+        // CALL: function calculate number of new infections
+        // if new infections:
+        // CALL: function to generate random Person
+        // add to infected list
+        // output state summary to console
+        // sleep timer to let user read results
+        // NEXT: state to process
 
+        // all states processed, output current snapshot of all states to console
+        // sleep timer to let user read summary
+        // NEXT: iteration
+    }
     // output summary to console of infected/recovered/dead after 52 intervals
 
     // END MAIN
@@ -109,13 +110,29 @@ int main()
 }
 
 // generate Person with random name/age
-Person CreateRandomPerson()
+Person CreateRandomPerson(const vector<string> &firstName, const vector<string> &lastName)
 {
+    int age = rand() % 100 + 1;
+    string name = string(firstName.at(rand()% 100 + 1) + " " + lastName.at(rand()% 100 + 1));
+
+    return Person(name, age, "infected");
 }
 
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &p)
 {
+    // update health status based on age
+    if (p.getStatus() == "infected")
+    {
+        if (p.getAge() > 60)
+        {
+            p.setStatus("deceased");
+        }
+        else if (p.getAge() < 40)
+        {
+            p.setStatus("recovered");
+        }
+    }
 }
 
 // populate name container
