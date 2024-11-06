@@ -64,7 +64,7 @@ int main()
 
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
-    map<string, tuple<int, list<Person>, list<Person>, list<Person>>> states;
+    map<string, tuple<array<list<Person>,3>>> states;
 
     // read in state information
     ifstream inFile(STATE_FILENAME);
@@ -79,7 +79,6 @@ int main()
         stringstream ss(line);
         getline(ss, stateName, ':');
         ss >> population;
-        // cout << "State: " << stateName << " Population: " << population << "\n";
         states.insert({stateName, tuple(population, list<Person>(), list<Person>(), list<Person>())});
     }
     // close state data file
