@@ -81,8 +81,9 @@ int main()
         stringstream ss(line);
         getline(ss, stateName, ':');
         ss >> population;
+        statePopulations.insert({stateName, population}); // create population map
 
-        statePopulations.insert({stateName, population});
+        // create array
         states.insert({stateName, array<list<Person>, 3>});
     }
     // close state data file
