@@ -108,8 +108,12 @@ int main()
         // currently function is left in main for simplicity for now, but will be refactored later
         for (auto state : states) // for each state
         {
-            cout << state.first << ":\n";
+            int numRecovered = 0;
+            int numDead = 0;
+            int count = 0;
             Person patient;
+            // output state
+            cout << state.first << ": ";
             for (auto it = state.second[0].begin(); it != state.second[0].end();)
             {
                 // update the health status of patient and set to variable incase of .erase
@@ -122,17 +126,25 @@ int main()
                 {
                     state.second[1].push_back(*it);
                     it = state.second[0].erase(it);
+                    numRecovered++;
                 }
                 else if (it->getStatus() == "deceased")
                 {
                     state.second[2].push_back(*it);
                     it = state.second[0].erase(it);
+                    numDead++;
                 }
                 else
                 {
                     it++; // only increment if nothing is erased
                 }
-                cout << patient.getName() << ": " << patient.getStatus() << endl;
+
+                if (count > 0)
+                {
+                    cout << ","; // for next patient to list
+                }
+                cout << patient.getName() << " (" << patient.getStatus() << ")";
+                count++;
             }
             cout << endl; // next state
         }
