@@ -105,12 +105,12 @@ int main()
         }
 
         // CALL: function to determine recovery/death for each infected person for each state
-        for (auto it = states.begin(); it != states.end(); it++) // for each state
+        for (auto state : states) // for each state
         {
-            cout << it->first << ":\n";
-            for (auto p : it->second[0])
+            cout << state.first << ":\n";
+            for (auto it = state.second[0].begin(); it != state.second[0].end(); it++)
             {
-                it->second[0].remove(p);
+                it = state.second[0].remove(it);
                 UpdateHealthStatus(p);
                 // update list of recovered and deceased
                 if (p.getStatus() == "recovered")
