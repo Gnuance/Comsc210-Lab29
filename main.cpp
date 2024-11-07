@@ -105,32 +105,37 @@ int main()
         }
 
         // CALL: function to determine recovery/death for each infected person for each state
+        // currently function is left in main for simplicity for now, but will be refactored later
         for (auto state : states) // for each state
         {
             cout << state.first << ":\n";
+            Person patient;
             for (auto it = state.second[0].begin(); it != state.second[0].end();)
             {
-                Person patient = *it;
+                // update the health status of patient and set to variable incase of .erase
                 UpdateHealthStatus(*it);
+                patient = *it;
                 // update list of recovered and deceased
+                // place person into list determined by function
+                // set it = erase since erase returns the next element
                 if (it->getStatus() == "recovered")
                 {
                     state.second[1].push_back(*it);
-                    state.second[0].erase(it);
+                    it = state.second[0].erase(it);
                 }
                 else if (it->getStatus() == "deceased")
                 {
                     state.second[2].push_back(*it);
-                    state.second[0].erase(it);
+                    it = state.second[0].erase(it);
                 }
                 else
                 {
                     it++; // only increment if nothing is erased
                 }
-                cout << patient.getName() << ": " << it->getStatus() << endl;
+                cout << patient.getName() << ": " << patient.getStatus() << endl;
             }
+            cout << endl; // next state
         }
-        // place person into list determined by function
 
         // CALL: function calculate number of new infections
         // if new infections:
