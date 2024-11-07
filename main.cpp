@@ -108,7 +108,7 @@ int main()
         for (auto state : states) // for each state
         {
             cout << state.first << ":\n";
-            for (auto it = state.second[0].begin(); it != state.second[0].end(); it++)
+            for (auto it = state.second[0].begin(); it != state.second[0].end();)
             {
                 Person patient = *it;
                 UpdateHealthStatus(*it);
@@ -116,12 +116,18 @@ int main()
                 if (it->getStatus() == "recovered")
                 {
                     state.second[1].push_back(*it);
+                    state.second[0].erase(it);
                 }
                 else if (it->getStatus() == "deceased")
                 {
                     state.second[2].push_back(*it);
+                    state.second[0].erase(it);
                 }
-                cout << it->getName() << ": " << it->getStatus() << endl;
+                else
+                {
+                    it++; // only increment if nothing is erased
+                }
+                cout << patient.getName() << ": " << it->getStatus() << endl;
             }
         }
         // place person into list determined by function
