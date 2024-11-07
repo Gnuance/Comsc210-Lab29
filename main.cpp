@@ -121,6 +121,7 @@ int main()
                 {
                     it->second[2].push_back(p);
                 }
+                cout << p.getName() << ": " << p.getStatus() << endl;
             }
         }
         // place person into list determined by function
