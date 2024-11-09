@@ -123,15 +123,16 @@ int main()
         // NEXT: state to process
 
         // all states processed, output current snapshot of all states to console
-        cout << "End of period results:";
+        cout << "\nEnd of period results:";
         for (auto it = states.begin(); it != states.end(); it++)
         {
             if (!(count % 5)) cout << endl;
             // output 5 states per line with current values
-            cout << it->first << StateInfectionSummaryToString(*it) << "\t";
+            cout << it->first << " " << StateInfectionSummaryToString(*it) << "\t";
 
             count++;
         }
+        cout << endl;
 
         // sleep timer to let user read summary
         // NEXT: iteration
@@ -267,10 +268,12 @@ string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> 
 {
     ostringstream oss;
 
-    int numInfected = accumulate(state.second[0].begin(), state.second[0].end(), 0);
-    int numRecovered = accumulate(state.second[1].begin(), state.second[1].end(), 0);
-    int numDeceased = accumulate(state.second[2].begin(), state.second[2].end(), 0);
+    // sum infected/recovered/deceased fields
+    int numInfected = state.second[0].size();
+    int numRecovered = state.second[1].size();
+    int numDeceased = state.second[2].size();
 
+    // concat output string
     oss << "[" << numInfected << "," << numRecovered << "," << numDeceased << "]";
 
     return oss.str();
