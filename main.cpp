@@ -63,28 +63,6 @@ int main()
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
     vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
 
-    size_t count = 0;
-
-    cout << "First Names:" << "\n";
-    for (string name : firstNames)
-    {
-        if (count > 0) cout << ", ";
-        cout << name;
-        count++;
-    }
-    cout << "Total first names: " << count << endl << endl;
-    count = 0;
-
-    cout << "Last Names:" << "\n";
-    for (string name : lastNames)
-    {
-        if (count > 0) cout << ", ";
-        cout << name;
-        count++;
-    }
-    cout << "Total last names: " << count << endl << endl;
-    cout << endl;
-
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
     map<string, array<list<Person>, 3>> states;

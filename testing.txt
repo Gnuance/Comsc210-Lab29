@@ -36,6 +36,25 @@
     {
         vector<string> firstNames = GetNamesFromFile("firstNames.csv";);
         vector<string> lastNames = GetNamesFromFile("lastNames.csv";);
+        size_t count = 0;
 
-        
+        cout << "First Names:" << "\n";
+        for (string name : firstNames)
+        {
+            if (count > 0) cout << ", ";
+            cout << name;
+            count++;
+        }
+        cout << ".\nTotal first names: " << count << endl << endl;
+        count = 0;
+
+        cout << "Last Names:" << "\n";
+        for (string name : lastNames)
+        {
+            if (count > 0) cout << ", ";
+            cout << name;
+            count++;
+        }
+        cout << ".\nTotal last names: " << count << endl << endl;
+        cout << endl;
     }
