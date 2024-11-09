@@ -128,7 +128,8 @@ int main()
         {
             if (!(count % 5)) cout << endl;
             // output 5 states per line with current values
-            
+            cout << it->first << StateInfectionSummaryToString(*it) << "\t";
+
             count++;
         }
 
@@ -262,7 +263,15 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 }
 
 // return string of infection summary
-string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &)
+string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
 {
+    ostringstream oss;
 
+    int numInfected = accumulate(state.second[0].begin(), state.second[0].end(), 0);
+    int numRecovered = accumulate(state.second[1].begin(), state.second[1].end(), 0);
+    int numDeceased = accumulate(state.second[2].begin(), state.second[2].end(), 0);
+
+    oss << "[" << numInfected << "," << numRecovered << "," << numDeceased << "]";
+
+    return oss.str();
 }
