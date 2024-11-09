@@ -38,6 +38,8 @@ void UpdateHealthStatus(Person &);
 // TODO: FUNCTION: calculate number of new infections
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
+// summary of state infections for end of period output
+string StateInfectionSummaryToString();
 // END FUNCTIONS
 
 // FIXED: determined global variables no longer needed and would only create coupling
@@ -99,13 +101,13 @@ int main()
     for (int i = 0; i < 1; i++)
     {
         // for each state <map element>
-        // for (auto it = states.begin(); it != states.end(); it++)
-        // {
-        //     // create infected person for each state
-        //     Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
-        //     infectedPerson.setStatus("infected");
-        //     it->second[0].push_back(infectedPerson);
-        // }
+        for (auto it = states.begin(); it != states.end(); it++)
+        {
+            // create infected person for each state
+            Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
+            infectedPerson.setStatus("infected");
+            it->second[0].push_back(infectedPerson);
+        }
 
         // CALL: function to determine recovery/death for each infected person for each state
         // REFACTORED: previous code refactored into function UpdateStateInfections
@@ -145,10 +147,18 @@ void UpdateHealthStatus(Person &p)
     if (p.getStatus() == "infected")
     {
         // calculate mortality;
-        int mortalityRate = rand() % 100;
+        int recoveryChance = rand() % 100;
+        if (p.getAge() < 40)
+        {
+            recoveryChance * 1.5;
+        }
+        else if (p.getAge() > 60)
+        {
+            recoveryChance * 0.85;
+        }
 
-        // mortality rate < persons age == deceased, else, recovered
-        if (mortalityRate < p.getAge())
+        // recovery chance < persons age then deceased, else recovered
+        if (recoveryChance < p.getAge())
         {
             p.setStatus("deceased");
         }
@@ -234,7 +244,8 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
             cout << patient.getName() << " (" << patient.getStatus() << ")";
             count++;
         }
-        if (!count) cout << "No updates."; // if no help updates to report
+        if (!count)
+            cout << "No updates."; // if no help updates to report
 
         cout << endl; // next state
     }
