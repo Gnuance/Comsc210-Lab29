@@ -36,6 +36,8 @@ void UpdateHealthStatus(Person &);
 // TODO: FUNCTION: calculate number of new infections
 // populate name container
 vector<string> GetNamesFromFile(string);
+// updates infections for each state within map
+void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
 // END FUNCTIONS
 
 // FIXED: determined global variables no longer needed and would only create coupling
@@ -97,58 +99,17 @@ int main()
     for (int i = 0; i < 1; i++)
     {
         // for each state <map element>
-        for (auto it = states.begin(); it != states.end(); it++)
-        {
-            // create infected person for each state
-            Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
-            infectedPerson.setStatus("infected");
-            it->second[0].push_back(infectedPerson);
-        }
+        // for (auto it = states.begin(); it != states.end(); it++)
+        // {
+        //     // create infected person for each state
+        //     Person infectedPerson = CreateRandomPerson(firstNames, lastNames);
+        //     infectedPerson.setStatus("infected");
+        //     it->second[0].push_back(infectedPerson);
+        // }
 
         // CALL: function to determine recovery/death for each infected person for each state
-        // currently function is left in main for simplicity for now, but will be refactored later
-        for (auto state : states) // for each state
-        {
-            int numRecovered = 0;
-            int numDead = 0;
-            int count = 0;
-            Person patient;
-            // output state
-            cout << state.first << ": ";
-            for (auto it = state.second[0].begin(); it != state.second[0].end();)
-            {
-                // update the health status of patient and set to variable incase of .erase
-                UpdateHealthStatus(*it);
-                patient = *it;
-                // update list of recovered and deceased
-                // place person into list determined by function
-                // set it = erase since erase returns the next element
-                if (it->getStatus() == "recovered")
-                {
-                    state.second[1].push_back(*it);
-                    it = state.second[0].erase(it);
-                    numRecovered++;
-                }
-                else if (it->getStatus() == "deceased")
-                {
-                    state.second[2].push_back(*it);
-                    it = state.second[0].erase(it);
-                    numDead++;
-                }
-                else
-                {
-                    it++; // only increment if nothing is erased
-                }
-
-                if (count > 0)
-                {
-                    cout << ","; // for next patient to list
-                }
-                cout << patient.getName() << " (" << patient.getStatus() << ")";
-                count++;
-            }
-            cout << endl; // next state
-        }
+        // REFACTORED: previous code refactored into function UpdateStateInfections
+        UpdateStateInfections(states);
 
         // CALL: function calculate number of new infections
         // if new infections:
@@ -226,4 +187,51 @@ vector<string> GetNamesFromFile(string fileName)
     inputFile.close(); // close the file
 
     return names;
+}
+
+// updates infections for each state within map
+void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
+{
+    for (auto state : states) // for each state
+    {
+        int numRecovered = 0;
+        int numDead = 0;
+        int count = 0;
+        Person patient;
+        // output state
+        cout << state.first << ": ";
+        for (auto it = state.second[0].begin(); it != state.second[0].end();)
+        {
+            // update the health status of patient and set to variable incase of .erase
+            UpdateHealthStatus(*it);
+            patient = *it;
+            // update list of recovered and deceased
+            // place person into list determined by function
+            // set it = erase since erase returns the next element
+            if (it->getStatus() == "recovered")
+            {
+                state.second[1].push_back(*it);
+                it = state.second[0].erase(it);
+                numRecovered++;
+            }
+            else if (it->getStatus() == "deceased")
+            {
+                state.second[2].push_back(*it);
+                it = state.second[0].erase(it);
+                numDead++;
+            }
+            else
+            {
+                it++; // only increment if nothing is erased
+            }
+
+            if (count > 0)
+            {
+                cout << ","; // for next patient to list
+            }
+            cout << patient.getName() << " (" << patient.getStatus() << ")";
+            count++;
+        }
+        cout << endl; // next state
+    }
 }
