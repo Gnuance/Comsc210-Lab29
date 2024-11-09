@@ -99,7 +99,7 @@ int main()
     // begin simulation of infection events
     // for 52 intervals
     // test single iteration for now
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 5; i++)
     {
         // for each state <map element>
         for (auto it = states.begin(); it != states.end(); it++)
@@ -126,13 +126,13 @@ int main()
         cout << "\nEnd of period results:";
         for (auto it = states.begin(); it != states.end(); it++)
         {
+            // output 5 states per line with current infection/recovered/deceased values
             if (!(count % 5)) cout << endl;
-            // output 5 states per line with current values
             cout << it->first << " " << StateInfectionSummaryToString(*it) << "\t";
 
             count++;
         }
-        cout << endl;
+        cout << endl << endl;
 
         // sleep timer to let user read summary
         // NEXT: iteration
@@ -232,15 +232,15 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
             // update list of recovered and deceased
             // place person into list determined by function
             // set it = erase since erase returns the next element
-            if (it->getStatus() == "recovered")
+            if (patient.getStatus() == "recovered")
             {
-                state.second[1].push_back(*it);
+                state.second[1].push_back(patient);
                 it = state.second[0].erase(it);
                 numRecovered++;
             }
-            else if (it->getStatus() == "deceased")
+            else if (patient.getStatus() == "deceased")
             {
-                state.second[2].push_back(*it);
+                state.second[2].push_back(patient);
                 it = state.second[0].erase(it);
                 numDead++;
             }
