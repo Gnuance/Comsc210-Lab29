@@ -99,7 +99,7 @@ int main()
     // begin simulation of infection events
     // for 52 intervals
     // test single iteration for now
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 4; i++)
     {
         // for each state <map element>
         for (auto it = states.begin(); it != states.end(); it++)
