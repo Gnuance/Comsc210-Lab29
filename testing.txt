@@ -1,0 +1,17 @@
+# Testing
+
+## Unit tests
++ Person CreateRandomPerson(const vector<string> &firstName, const vector<string> &lastName)
+    - Outputs a fully formed Person object, but requires 2 vectors to form random person name: first name & last name
+    - Driver:
+    int main()
+    {
+        vector<string> fName = {"John", "Cindy", "Fred"};
+        vector<string> lName = {"Smith", "Peters", "Washington"};
+
+        for (int i = 0; i < 10; i++)
+        {
+            Person tempPerson = CreateRandomPerson(fName, lName);
+            cout << "Name: " << tempPerson.getName() << ", Age: " << tempPerson.getAge() << ", Status: " << tempPerson.getStatus() << endl;
+        }
+    }

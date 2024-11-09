@@ -60,7 +60,7 @@ int main()
 
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
-    vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
+    vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);    
 
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
