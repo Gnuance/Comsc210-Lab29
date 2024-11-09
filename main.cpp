@@ -29,13 +29,13 @@ using namespace std;
 // END HEADERS
 
 // FUNCTIONS
+// populate name container
+vector<string> GetNamesFromFile(string);
 // generate Person with random name/age
 Person CreateRandomPerson(const vector<string> &, const vector<string> &);
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &);
 // TODO: FUNCTION: calculate number of new infections
-// populate name container
-vector<string> GetNamesFromFile(string);
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
 // END FUNCTIONS
@@ -145,8 +145,10 @@ void UpdateHealthStatus(Person &p)
     if (p.getStatus() == "infected")
     {
         // calculate mortality;
-        // if rand() < persons age == deceased, else, recovered
-        if (rand() % 100 < p.getAge())
+        int mortalityRate = rand() % 100;
+
+        // mortality rate < persons age == deceased, else, recovered
+        if (mortalityRate < p.getAge())
         {
             p.setStatus("deceased");
         }
@@ -232,6 +234,8 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
             cout << patient.getName() << " (" << patient.getStatus() << ")";
             count++;
         }
+        if (!count) cout << "No updates."; // if no help updates to report
+
         cout << endl; // next state
     }
 }
