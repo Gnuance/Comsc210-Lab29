@@ -33,11 +33,12 @@ using namespace std;
 Person CreateRandomPerson(const vector<string> &, const vector<string> &);
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &);
-// calculate number of new infections
+// TODO: FUNCTION: calculate number of new infections
 // populate name container
 vector<string> GetNamesFromFile(string);
 // END FUNCTIONS
 
+// FIXED: determined global variables no longer needed and would only create coupling
 // GLOBAL VARIABLES
 // firstNames array, for random name generation
 // const string FIRST_NAMES[100] = {};
@@ -60,7 +61,14 @@ int main()
 
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
-    vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);    
+    vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
+
+    for (int i = 0; i < 10; i++)
+    {
+        Person tempPerson = Person("John Smith", rand() % 100 + 1, "infected");
+        UpdateHealthStatus(tempPerson);
+        cout << "Name: " << tempPerson.getName() << ", Age: " << tempPerson.getAge() << ", Status: " << tempPerson.getStatus() << endl;
+    }
 
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}
