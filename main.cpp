@@ -50,7 +50,7 @@ vector<string> GetNamesFromFile(string);
 int main()
 {
     const string FIRST_NAME_FILENAME = "firstNames.csv";
-    const string LAST_NAME_FILENAME = "firstNames.csv";
+    const string LAST_NAME_FILENAME = "lastNames.csv";
     const string STATE_FILENAME = "statePopulationInfo.txt";
     const int SIMULATION_ITERATIONS = 52;
     string line = "";
@@ -63,12 +63,27 @@ int main()
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
     vector<string> lastNames = GetNamesFromFile(LAST_NAME_FILENAME);
 
-    for (int i = 0; i < 10; i++)
+    size_t count = 0;
+
+    cout << "First Names:" << "\n";
+    for (string name : firstNames)
     {
-        Person tempPerson = Person("John Smith", rand() % 100 + 1, "infected");
-        UpdateHealthStatus(tempPerson);
-        cout << "Name: " << tempPerson.getName() << ", Age: " << tempPerson.getAge() << ", Status: " << tempPerson.getStatus() << endl;
+        if (count > 0) cout << ", ";
+        cout << name;
+        count++;
     }
+    cout << "Total first names: " << count << endl << endl;
+    count = 0;
+
+    cout << "Last Names:" << "\n";
+    for (string name : lastNames)
+    {
+        if (count > 0) cout << ", ";
+        cout << name;
+        count++;
+    }
+    cout << "Total last names: " << count << endl << endl;
+    cout << endl;
 
     // read state data from file (state abbrev:population); EXIT if ERROR
     // for each item from state file --> initialize map element with {State<string>: population<int>, infected<list> = null, recovered<list> = null, died<list> = null}

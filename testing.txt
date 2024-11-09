@@ -28,3 +28,14 @@
             cout << "Name: " << tempPerson.getName() << ", Age: " << tempPerson.getAge() << ", Status: " << tempPerson.getStatus() << endl;
         }
     }
+
++ vector<string> GetNamesFromFile(string fileName)
+    - Returns vector containing names extracted from a fileName
+    - Driver:
+    int main()
+    {
+        vector<string> firstNames = GetNamesFromFile("firstNames.csv";);
+        vector<string> lastNames = GetNamesFromFile("lastNames.csv";);
+
+        
+    }
