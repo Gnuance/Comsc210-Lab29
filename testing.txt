@@ -1,0 +1,60 @@
+# Testing
+
+## Unit tests
++ Person CreateRandomPerson(const vector<string> &firstName, const vector<string> &lastName)
+    - Outputs a fully formed Person object, but requires 2 vectors to form random person name: first name & last name
+    - Driver:
+    int main()
+    {
+        vector<string> fName = {"John", "Cindy", "Fred"};
+        vector<string> lName = {"Smith", "Peters", "Washington"};
+
+        for (int i = 0; i < 10; i++)
+        {
+            Person tempPerson = CreateRandomPerson(fName, lName);
+            cout << "Name: " << tempPerson.getName() << ", Age: " << tempPerson.getAge() << ", Status: " << tempPerson.getStatus() << endl;
+        }
+    }
+
++ void UpdateHealthStatus(Person &p)
+    - Determines new health status for Person
+    - Driver:
+    int main()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Person tempPerson = Person("John Smith", rand() % 100 + 1, "infected");
+            UpdateHealthStatus(tempPerson);
+            cout << "Name: " << tempPerson.getName() << ", Age: " << tempPerson.getAge() << ", Status: " << tempPerson.getStatus() << endl;
+        }
+    }
+
++ vector<string> GetNamesFromFile(string fileName)
+    - Returns vector containing names extracted from a fileName
+    - Driver:
+    int main()
+    {
+        vector<string> firstNames = GetNamesFromFile("firstNames.csv";);
+        vector<string> lastNames = GetNamesFromFile("lastNames.csv";);
+        size_t count = 0;
+
+        cout << "First Names:" << "\n";
+        for (string name : firstNames)
+        {
+            if (count > 0) cout << ", ";
+            cout << name;
+            count++;
+        }
+        cout << ".\nTotal first names: " << count << endl << endl;
+        count = 0;
+
+        cout << "Last Names:" << "\n";
+        for (string name : lastNames)
+        {
+            if (count > 0) cout << ", ";
+            cout << name;
+            count++;
+        }
+        cout << ".\nTotal last names: " << count << endl << endl;
+        cout << endl;
+    }

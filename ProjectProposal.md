@@ -12,7 +12,7 @@
     - The likelihood is based on the delta of their age from those age limits.
 
 ## Implementation
-+ States are represented as map elements {State<string>: population<int>, infected<list>, recovered<list>, died<list>}
++ States are represented as map elements {State<string>: array(infected<list>, recovered<list>, died<list>)}
 + Each list item holds elements of type Person representing an individual.
     - Names/ages assigned randomly.
 + Age range for Person (years): 1-100
@@ -20,7 +20,7 @@
 ## Simulation Events
 + For each iteration, a random infection value is assigned and multiplied times the number of infected people and population size to determine the number of new infections.
     - A reduction in the number of new infections is based on the number of recovered individuals.
-+ For each iteration, a previously infected individual MUST recover or pass away.
++ For each iteration, a previously infected individual will recover, pass away, or stay infected.
 
 ## Additional Notes
 + For the current version of this program:

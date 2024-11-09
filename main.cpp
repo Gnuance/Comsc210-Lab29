@@ -29,15 +29,20 @@ using namespace std;
 // END HEADERS
 
 // FUNCTIONS
+// populate name container
+vector<string> GetNamesFromFile(string);
 // generate Person with random name/age
 Person CreateRandomPerson(const vector<string> &, const vector<string> &);
 // determine recovery/death for Person
 void UpdateHealthStatus(Person &);
-// calculate number of new infections
-// populate name container
-vector<string> GetNamesFromFile(string);
+// TODO: FUNCTION: calculate number of new infections
+// updates infections for each state within map
+void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
+// summary of state infections for end of period output
+string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &);
 // END FUNCTIONS
 
+// FIXED: determined global variables no longer needed and would only create coupling
 // GLOBAL VARIABLES
 // firstNames array, for random name generation
 // const string FIRST_NAMES[100] = {};
@@ -49,7 +54,7 @@ vector<string> GetNamesFromFile(string);
 int main()
 {
     const string FIRST_NAME_FILENAME = "firstNames.csv";
-    const string LAST_NAME_FILENAME = "firstNames.csv";
+    const string LAST_NAME_FILENAME = "lastNames.csv";
     const string STATE_FILENAME = "statePopulationInfo.txt";
     const int SIMULATION_ITERATIONS = 52;
     string line = "";
@@ -57,6 +62,7 @@ int main()
     string stateName = "";
     int population = 0;
     string temp = "";
+    int count = 0;
 
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
@@ -93,7 +99,7 @@ int main()
     // begin simulation of infection events
     // for 52 intervals
     // test single iteration for now
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 5; i++)
     {
         // for each state <map element>
         for (auto it = states.begin(); it != states.end(); it++)
@@ -105,49 +111,8 @@ int main()
         }
 
         // CALL: function to determine recovery/death for each infected person for each state
-        // currently function is left in main for simplicity for now, but will be refactored later
-        for (auto state : states) // for each state
-        {
-            int numRecovered = 0;
-            int numDead = 0;
-            int count = 0;
-            Person patient;
-            // output state
-            cout << state.first << ": ";
-            for (auto it = state.second[0].begin(); it != state.second[0].end();)
-            {
-                // update the health status of patient and set to variable incase of .erase
-                UpdateHealthStatus(*it);
-                patient = *it;
-                // update list of recovered and deceased
-                // place person into list determined by function
-                // set it = erase since erase returns the next element
-                if (it->getStatus() == "recovered")
-                {
-                    state.second[1].push_back(*it);
-                    it = state.second[0].erase(it);
-                    numRecovered++;
-                }
-                else if (it->getStatus() == "deceased")
-                {
-                    state.second[2].push_back(*it);
-                    it = state.second[0].erase(it);
-                    numDead++;
-                }
-                else
-                {
-                    it++; // only increment if nothing is erased
-                }
-
-                if (count > 0)
-                {
-                    cout << ","; // for next patient to list
-                }
-                cout << patient.getName() << " (" << patient.getStatus() << ")";
-                count++;
-            }
-            cout << endl; // next state
-        }
+        // REFACTORED: previous code refactored into function UpdateStateInfections
+        UpdateStateInfections(states);
 
         // CALL: function calculate number of new infections
         // if new infections:
@@ -158,6 +123,17 @@ int main()
         // NEXT: state to process
 
         // all states processed, output current snapshot of all states to console
+        cout << "\nEnd of period " << i + 1 << " results:";
+        for (auto it = states.begin(); it != states.end(); it++)
+        {
+            // output 5 states per line with current infection/recovered/deceased values
+            if (!(count % 5)) cout << endl;
+            cout << it->first << " " << StateInfectionSummaryToString(*it) << "\t";
+
+            count++;
+        }
+        cout << endl << endl;
+
         // sleep timer to let user read summary
         // NEXT: iteration
     }
@@ -183,8 +159,18 @@ void UpdateHealthStatus(Person &p)
     if (p.getStatus() == "infected")
     {
         // calculate mortality;
-        // if rand() < persons age == deceased, else, recovered
-        if (rand() % 100 < p.getAge())
+        int recoveryChance = rand() % 100;
+        if (p.getAge() < 40)
+        {
+            recoveryChance * 1.5;
+        }
+        else if (p.getAge() > 60)
+        {
+            recoveryChance * 0.85;
+        }
+
+        // recovery chance < persons age then deceased, else recovered
+        if (recoveryChance < p.getAge())
         {
             p.setStatus("deceased");
         }
@@ -225,4 +211,70 @@ vector<string> GetNamesFromFile(string fileName)
     inputFile.close(); // close the file
 
     return names;
+}
+
+// updates infections for each state within map
+void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
+{
+    for (auto state : states) // for each state
+    {
+        int numRecovered = 0;
+        int numDead = 0;
+        int count = 0;
+        Person patient;
+        // output state
+        cout << state.first << ": ";
+        for (auto it = state.second[0].begin(); it != state.second[0].end();)
+        {
+            // update the health status of patient and set to variable incase of .erase
+            UpdateHealthStatus(*it);
+            patient = *it;
+            // update list of recovered and deceased
+            // place person into list determined by function
+            // set it = erase since erase returns the next element
+            if (patient.getStatus() == "recovered")
+            {
+                state.second[1].push_back(patient);
+                it = state.second[0].erase(it);
+                numRecovered++;
+            }
+            else if (patient.getStatus() == "deceased")
+            {
+                state.second[2].push_back(patient);
+                it = state.second[0].erase(it);
+                numDead++;
+            }
+            else
+            {
+                it++; // only increment if nothing is erased
+            }
+
+            if (count > 0)
+            {
+                cout << ","; // for next patient to list
+            }
+            cout << patient.getName() << " (" << patient.getStatus() << ")";
+            count++;
+        }
+        if (!count)
+            cout << "No updates."; // if no help updates to report
+
+        cout << endl; // next state
+    }
+}
+
+// return string of infection summary
+string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
+{
+    ostringstream oss;
+
+    // sum infected/recovered/deceased fields
+    int numInfected = state.second[0].size();
+    int numRecovered = state.second[1].size();
+    int numDeceased = state.second[2].size();
+
+    // concat output string
+    oss << "[" << numInfected << "," << numRecovered << "," << numDeceased << "]";
+
+    return oss.str();
 }
