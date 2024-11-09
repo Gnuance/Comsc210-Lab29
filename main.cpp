@@ -123,7 +123,7 @@ int main()
         // NEXT: state to process
 
         // all states processed, output current snapshot of all states to console
-        cout << "\nEnd of period results:";
+        cout << "\nEnd of period " << i + 1 << " results:";
         for (auto it = states.begin(); it != states.end(); it++)
         {
             // output 5 states per line with current infection/recovered/deceased values
