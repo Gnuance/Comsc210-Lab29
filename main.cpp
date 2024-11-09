@@ -39,7 +39,7 @@ void UpdateHealthStatus(Person &);
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
 // summary of state infections for end of period output
-string StateInfectionSummaryToString();
+string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &);
 // END FUNCTIONS
 
 // FIXED: determined global variables no longer needed and would only create coupling
@@ -62,6 +62,7 @@ int main()
     string stateName = "";
     int population = 0;
     string temp = "";
+    int count = 0;
 
     // read first and last name data from file && place into arrays && close file; EXIT if ERROR
     vector<string> firstNames = GetNamesFromFile(FIRST_NAME_FILENAME);
@@ -122,6 +123,15 @@ int main()
         // NEXT: state to process
 
         // all states processed, output current snapshot of all states to console
+        cout << "End of period results:";
+        for (auto it = states.begin(); it != states.end(); it++)
+        {
+            if (!(count % 5)) cout << endl;
+            // output 5 states per line with current values
+            
+            count++;
+        }
+
         // sleep timer to let user read summary
         // NEXT: iteration
     }
@@ -249,4 +259,10 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 
         cout << endl; // next state
     }
+}
+
+// return string of infection summary
+string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &)
+{
+
 }
