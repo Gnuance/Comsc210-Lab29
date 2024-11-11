@@ -29,3 +29,7 @@
 
 9. 2024-11-10 - Program not adding more than one infected Person per iteration.
     - Need to check if loop is properly adding additional infected.
+    - FIXED: for (auto state : states) changed to for (auto& state : states). Still having trouble understanding that pair has to be iterated by ref.
+
+10. 2024-11-10 - Summary output too hard to read on screen.
+    - FIXED: updated number of states output per line.
