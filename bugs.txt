@@ -1,0 +1,3 @@
+# BUGS
+2024-11-10 - array in map object states is still not updating 2nd and 3rd lists on each iteration.
+    - Continue checking UpdateStateInfections function.
