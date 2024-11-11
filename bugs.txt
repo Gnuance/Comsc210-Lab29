@@ -5,15 +5,27 @@
                     or erasing value to be removed from state.second[0].
         - FIXED: In UpdateStateInfections: for (auto state : states) changed to for (auto& state : states).
                     & required to explicitly refer to lists by reference.
+
 2. 2024-11-10 - string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
     - Changed to: string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &state)
+
 3. 2024-11-10 - Program wasn't pausing to let user read results.
     - Sleep timer implemented, thread & chrono used.
+
 4. 2024-11-10 - Each iteration keeps using the same people names, recovery and deaths.
     - FIXED: See item 1 above. & fixed the iteration.
+
 5. 2024-11-10 - Each iteration appends new Person to infection list, but previous Person object remains and gets updated again.
     - FIXED: See item 1 above. & removed previous Person from list and prevented additional update.
+
 6. 2024-11-10 - UpdateHealthStatus doesn't provide a way for Person to remain infected.
     - FIXED: Recovery algorithm updated in UpdateHealthStatus.
+
 7. 2024-11-10 - No function to add additional infections based on number of current infections.
-    - 
+    - Added loop in main to handle additional infection to infected list.
+
+8. 2024-11-10 - Infection list in main seems to be looping infinitely after first iteration.
+    - FIXED: Note to self: DON'T USE i < list.size() when using the loop to push values into said list.
+
+9. 2024-11-10 - Program not adding more than one infected Person per iteration.
+    - Need to check if loop is properly adding additional infected.

@@ -119,9 +119,10 @@ int main()
         // CALL: function calculate number of new infections
         // if new infections:
         // loop to add new infection for each current infection
-        for (auto& state : states)
+        for (auto state : states)
         {
-            for (int i=0; i < state.second[0].size(); i++)
+            int numInfections = state.second[0].size();
+            for (int i = 0; i < numInfections; i++)
             {
                 state.second[0].push_back(CreateRandomPerson(firstNames, lastNames));
             }
