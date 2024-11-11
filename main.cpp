@@ -220,7 +220,7 @@ vector<string> GetNamesFromFile(string fileName)
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 {
-    for (auto state : states) // for each state
+    for (auto& state : states) // for each state
     {
         int numRecovered = 0;
         int numDead = 0;
