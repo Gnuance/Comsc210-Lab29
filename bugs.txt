@@ -33,3 +33,6 @@
 
 10. 2024-11-10 - Summary output too hard to read on screen.
     - FIXED: updated number of states output per line.
+
+11. 2024-11-10 - Summary output not displaying properly with varying numbers of output per line.
+    - FIXED: counter needed to be reset to 0 after each iteration.

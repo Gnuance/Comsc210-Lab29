@@ -118,7 +118,7 @@ int main()
 
         // if new infections:
         // loop to add new infection for each current infection
-        for (auto& state : states)
+        for (auto &state : states)
         {
             int numInfections = state.second[0].size();
             for (int i = 0; i < numInfections; i++)
@@ -132,11 +132,14 @@ int main()
 
         // all states processed, output current snapshot of all states to console
         cout << "\nEnd of period " << i + 1 << " results:";
+        count = 0; // reset counter before iterating
         for (auto it = states.begin(); it != states.end(); it++)
         {
-            // output 5 states per line with current infection/recovered/deceased values
-            if (!(count % 7))
+            // output 8 states per line with current infection/recovered/deceased values
+            if (!(count % 8))
+            {
                 cout << endl;
+            }
             cout << it->first << " " << StateInfectionSummaryToString(*it) << "\t";
             count++;
         }
