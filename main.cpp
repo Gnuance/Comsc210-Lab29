@@ -15,6 +15,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <random>
+#include <thread> // this_thread: required for sleep_for
+#include <chrono> // chrono: required for chrono::seconds
 
 // data structures
 #include <map>
@@ -39,7 +41,7 @@ void UpdateHealthStatus(Person &);
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
 // summary of state infections for end of period output
-string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &);
+string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &);
 // END FUNCTIONS
 
 // FIXED: determined global variables no longer needed and would only create coupling
@@ -114,27 +116,39 @@ int main()
         // REFACTORED: previous code refactored into function UpdateStateInfections
         UpdateStateInfections(states);
 
-        // CALL: function calculate number of new infections
         // if new infections:
-        // CALL: function to generate random Person
-        // add to infected list
+        // loop to add new infection for each current infection
+        for (auto &state : states)
+        {
+            int numInfections = state.second[0].size();
+            for (int i = 0; i < numInfections; i++)
+            {
+                // add to infected list
+                state.second[0].push_back(CreateRandomPerson(firstNames, lastNames));
+            }
+        }
         // output state summary to console
         // sleep timer to let user read results
-        // NEXT: state to process
 
         // all states processed, output current snapshot of all states to console
         cout << "\nEnd of period " << i + 1 << " results:";
+        count = 0; // reset counter before iterating
         for (auto it = states.begin(); it != states.end(); it++)
         {
-            // output 5 states per line with current infection/recovered/deceased values
-            if (!(count % 5)) cout << endl;
+            // output 8 states per line with current infection/recovered/deceased values
+            if (!(count % 8))
+            {
+                cout << endl;
+            }
             cout << it->first << " " << StateInfectionSummaryToString(*it) << "\t";
-
             count++;
         }
-        cout << endl << endl;
+        cout << endl
+             << endl;
 
         // sleep timer to let user read summary
+        this_thread::sleep_for(chrono::seconds(2));
+
         // NEXT: iteration
     }
     // output summary to console of infected/recovered/dead after 52 intervals
@@ -170,11 +184,11 @@ void UpdateHealthStatus(Person &p)
         }
 
         // recovery chance < persons age then deceased, else recovered
-        if (recoveryChance < p.getAge())
+        if (recoveryChance < p.getAge() / 2)
         {
             p.setStatus("deceased");
         }
-        else
+        else if (recoveryChance > p.getAge())
         {
             p.setStatus("recovered");
         }
@@ -216,7 +230,7 @@ vector<string> GetNamesFromFile(string fileName)
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 {
-    for (auto state : states) // for each state
+    for (auto &state : states) // for each state
     {
         int numRecovered = 0;
         int numDead = 0;
@@ -264,7 +278,7 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 }
 
 // return string of infection summary
-string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
+string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &state)
 {
     ostringstream oss;
 
