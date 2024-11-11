@@ -15,6 +15,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <random>
+#include <thread> // this_thread: required for sleep_for
+#include <chrono> // chrono: required for chrono::seconds
 
 // data structures
 #include <map>
@@ -135,6 +137,8 @@ int main()
         cout << endl << endl;
 
         // sleep timer to let user read summary
+        this_thread::sleep_for(chrono::seconds(2));
+
         // NEXT: iteration
     }
     // output summary to console of infected/recovered/dead after 52 intervals

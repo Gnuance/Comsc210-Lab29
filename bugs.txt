@@ -3,3 +3,5 @@
     - Continue checking UpdateStateInfections function.
 2024-11-10 - string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
     - Changed to: string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &state)
+2024-11-10 - Program wasn't pausing to let user read results.
+    - Sleep timer implemented, thread & chrono used.
