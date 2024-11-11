@@ -118,7 +118,14 @@ int main()
 
         // CALL: function calculate number of new infections
         // if new infections:
-        // CALL: function to generate random Person
+        // loop to add new infection for each current infection
+        for (auto& state : states)
+        {
+            for (int i=0; i < state.second[0].size(); i++)
+            {
+                state.second[0].push_back(CreateRandomPerson(firstNames, lastNames));
+            }
+        }
         // add to infected list
         // output state summary to console
         // sleep timer to let user read results
@@ -129,12 +136,13 @@ int main()
         for (auto it = states.begin(); it != states.end(); it++)
         {
             // output 5 states per line with current infection/recovered/deceased values
-            if (!(count % 5)) cout << endl;
+            if (!(count % 5))
+                cout << endl;
             cout << it->first << " " << StateInfectionSummaryToString(*it) << "\t";
-
             count++;
         }
-        cout << endl << endl;
+        cout << endl
+             << endl;
 
         // sleep timer to let user read summary
         this_thread::sleep_for(chrono::seconds(2));
@@ -174,7 +182,7 @@ void UpdateHealthStatus(Person &p)
         }
 
         // recovery chance < persons age then deceased, else recovered
-        if (recoveryChance < p.getAge()/2)
+        if (recoveryChance < p.getAge() / 2)
         {
             p.setStatus("deceased");
         }
@@ -220,7 +228,7 @@ vector<string> GetNamesFromFile(string fileName)
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 {
-    for (auto& state : states) // for each state
+    for (auto &state : states) // for each state
     {
         int numRecovered = 0;
         int numDead = 0;
