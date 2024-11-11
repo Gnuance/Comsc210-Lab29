@@ -1,7 +1,11 @@
 # BUGS
 2024-11-10 - array in map object states is still not updating 2nd and 3rd lists on each iteration.
     - Continue checking UpdateStateInfections function.
+        - UPDATE: UpdateStateInfections is definitely the issue and not appending modified Person object to state.second[1] or [2],
+                    or erasing value to be removed from state.second[0].
 2024-11-10 - string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
     - Changed to: string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &state)
 2024-11-10 - Program wasn't pausing to let user read results.
     - Sleep timer implemented, thread & chrono used.
+2024-11-10 - Each iteration keeps using the same people names, recovery and deaths.
+2024-11-10 - Each iteration appends new Person to infection list, but previous Person object remains and gets updated again.
