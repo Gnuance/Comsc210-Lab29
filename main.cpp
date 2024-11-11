@@ -101,7 +101,7 @@ int main()
     // begin simulation of infection events
     // for 52 intervals
     // test single iteration for now
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 52; i++)
     {
         // for each state <map element>
         for (auto it = states.begin(); it != states.end(); it++)
@@ -147,7 +147,7 @@ int main()
              << endl;
 
         // sleep timer to let user read summary
-        this_thread::sleep_for(chrono::seconds(2));
+        this_thread::sleep_for(chrono::seconds(1));
 
         // NEXT: iteration
     }
