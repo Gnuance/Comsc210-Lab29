@@ -14,3 +14,6 @@
 5. 2024-11-10 - Each iteration appends new Person to infection list, but previous Person object remains and gets updated again.
     - FIXED: See item 1 above. & removed previous Person from list and prevented additional update.
 6. 2024-11-10 - UpdateHealthStatus doesn't provide a way for Person to remain infected.
+    - FIXED: Recovery algorithm updated in UpdateHealthStatus.
+7. 2024-11-10 - No function to add additional infections based on number of current infections.
+    - 

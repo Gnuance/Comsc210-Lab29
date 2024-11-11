@@ -174,11 +174,11 @@ void UpdateHealthStatus(Person &p)
         }
 
         // recovery chance < persons age then deceased, else recovered
-        if (recoveryChance < p.getAge())
+        if (recoveryChance < p.getAge()/2)
         {
             p.setStatus("deceased");
         }
-        else
+        else if (recoveryChance > p.getAge())
         {
             p.setStatus("recovered");
         }
