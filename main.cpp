@@ -39,7 +39,7 @@ void UpdateHealthStatus(Person &);
 // updates infections for each state within map
 void UpdateStateInfections(map<string, array<list<Person>, 3>> &);
 // summary of state infections for end of period output
-string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &);
+string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &);
 // END FUNCTIONS
 
 // FIXED: determined global variables no longer needed and would only create coupling
@@ -264,7 +264,7 @@ void UpdateStateInfections(map<string, array<list<Person>, 3>> &states)
 }
 
 // return string of infection summary
-string StateInfectionSummaryToString(pair<const string, array<list<Person>, 3>> &state)
+string StateInfectionSummaryToString(const pair<string, array<list<Person>, 3>> &state)
 {
     ostringstream oss;
 
